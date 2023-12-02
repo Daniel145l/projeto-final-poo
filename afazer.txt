@@ -1,0 +1,15 @@
+O QUE EU TENHO QUE FAZER:
+    - tentar encontrar um jeito de avisar ao usuario a nota máxima permitida por nivel de jogodor (V)
+    - adicionar funcionalidade de treinar jogador (V)
+    - arrumar a ordem dos comandos
+    - quando chegar nos 50 pts, ganhar (V)
+    - comentar e organizar o codigo
+    - considerar a energia na hora do jogo
+    - adicionar o salvamento do progresso (V)
+
+    - adicionar a coletiva de imprensa
+
+
+
+
+    
