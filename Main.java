@@ -1,11 +1,9 @@
-// package projeto_poo;
-
-// import java.io.FileWriter;
-// import java.io.IOException;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        //SABER SE JA TEM PROGRESSO SALVO
 
         Time time = null;
 
@@ -25,12 +23,15 @@ public class Main {
 
         while(true) {
 
+            //salvar
             GerenciadorArquivo.salvarTime(time, "meu_time.ser");
 
+            //verficar se o time ganhou a temporada
             time.ganhouPts();
 
+            //menu
             System.out.println(
-                "\nO que quer fazer agora?\n(0) - Mostrar informações do time\n(1) - Comprar goleiro\n(2) - Comprar Fixo\n(3) - Comprar Ala\n(4) - Comprar Pivo\n(5) - Escolher capitao\n(6) - Jogar partida\n(7) - Adicionar titular\n(8) - Adcicionar reserva\n(9) - Fazer substituição\n(10) - Vender jogador\n(11) - Mandar jogador para fisioterapia\n(12) - Treinar jogador\n(-1) - Finalizar gerenciamento\n");
+                "\n================ MENU ================\n(0) - Mostrar informações do time\n(1) - Comprar goleiro\n(2) - Comprar Fixo\n(3) - Comprar Ala\n(4) - Comprar Pivo\n(5) - Adicionar titular\n(6) - Adcicionar reserva\n(7) - Escolher capitao\n(8) - Fazer substituição\n(9) - Vender jogador\n(10) - Jogar partida\n(11) - Mandar jogador para fisioterapia\n(12) - Treinar jogador\n(-1) - Finalizar gerenciamento\n======================================\n");
 
             var line = scanner.nextLine();
             var comando = line.split(" ");
@@ -44,7 +45,6 @@ public class Main {
                         break;
                     
                     case "1":
-                    // String nome, int camisa, double passe, double finalizacao, double reflexo, Posicao posicao, Nivel nivel
 
                         System.out.println("O seu time tem " + time.getRiqueza() + " de riqueza!");
                         Nivel nivelGol = time.nivelMostrarPerguntas();
@@ -122,13 +122,42 @@ public class Main {
                         break;
                     
                     case "5":
+                        System.out.println("Qual o nome do jogador que sera titular?");
+                        var nomeTit = scanner.nextLine();
+                        time.addTitular(nomeTit.toUpperCase());
+                        System.out.println(nomeTit.toUpperCase() + " adicioando a titular como sucesso!");
+                        break;
+
+                    case "6":
+                        System.out.println("Qual o nome do jogador que sera reserva?");
+                        var nomeRes = scanner.nextLine();
+                        time.addReserva(nomeRes.toUpperCase());
+                        System.out.println(nomeRes.toUpperCase() + " adicioando a reserva como sucesso!");
+                        break;
+
+                    case "7":
                         System.out.println("Qual o nome do jogador que sera capitao?");
                         String nomeCap = scanner.nextLine();
                         time.tornarCap(nomeCap.toUpperCase());
                         System.out.println(nomeCap.toUpperCase() + " tornou-se capitao do time!");
                         break;
 
-                    case "6":
+                    case "8":
+                        System.out.println("Qual o nome do jogador que saira?");
+                        var nomeSai = scanner.nextLine();
+                        System.out.println("Qual o nome do jogador que entrara?");
+                        var nomeEntra = scanner.nextLine();
+                        time.substituir(nomeEntra.toUpperCase(), nomeSai.toUpperCase());
+                        System.out.println("Saiu " + nomeSai.toUpperCase() + " para entrar " + nomeEntra.toUpperCase() + " no time");
+                        break;
+
+                    case "9":
+                        System.out.println("Qual é o nome do jogador que será vendido?");
+                        String nomeVende = scanner.nextLine();
+                        time.venderJogador(nomeVende.toUpperCase());
+                        break;
+
+                    case "10":
                         System.out.println("Em qual liga quer jogar?\n(1) - Copa CPP\n(2) - RecopaJS\n(3) - Liga Cafe");
                         String cmpt = scanner.nextLine();
                         switch (cmpt) {
@@ -143,35 +172,6 @@ public class Main {
                             default:
                                 break;
                         }
-                        break;
-
-                    case "7":
-                        System.out.println("Qual o nome do jogador que sera titular?");
-                        var nomeTit = scanner.nextLine();
-                        time.addTitular(nomeTit.toUpperCase());
-                        System.out.println(nomeTit.toUpperCase() + " adicioando a titular como sucesso!");
-                        break;
-
-                    case "8":
-                        System.out.println("Qual o nome do jogador que sera reserva?");
-                        var nomeRes = scanner.nextLine();
-                        time.addReserva(nomeRes.toUpperCase());
-                        System.out.println(nomeRes.toUpperCase() + " adicioando a reserva como sucesso!");
-                        break;
-
-                    case "9":
-                        System.out.println("Qual o nome do jogador que saira?");
-                        var nomeSai = scanner.nextLine();
-                        System.out.println("Qual o nome do jogador que entrara?");
-                        var nomeEntra = scanner.nextLine();
-                        time.substituir(nomeEntra.toUpperCase(), nomeSai.toUpperCase());
-                        System.out.println("Saiu " + nomeSai.toUpperCase() + " para entrar " + nomeEntra.toUpperCase() + " no time");
-                        break;
-
-                    case "10":
-                        System.out.println("Qual é o nome do jogador que será vendido?");
-                        String nomeVende = scanner.nextLine();
-                        time.venderJogador(nomeVende.toUpperCase());
                         break;
 
                     case "11":

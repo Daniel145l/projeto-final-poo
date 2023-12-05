@@ -1,5 +1,3 @@
-// package projeto_poo;
-
 enum Competicao {
     COPA_CPP(80, 20, 1, 15),
     RECOPA_JS(94, 45, 2, 20),

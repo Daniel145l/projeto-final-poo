@@ -1,28 +1,21 @@
-// package projeto_poo;
-
-// import java.io.Serializable;
 import java.text.DecimalFormat;
 
 public class Pivo extends Jogador {
     private double forca;
 
+    //inicializa o atributo novo e passa para o construtor do pai os atributos
     public Pivo(Nivel nivel, String nome, int camisa, double passe, double finalizacao, double forca, Posicao posicao) {
         super(nivel, nome, camisa, passe, finalizacao, posicao);
         this.forca = forca;
     }
 
-    // @Override
-    // public void treinarJogador(Jogador jogador) throws Exception{
-    //     // System.out.println("O custo do treino do jogador e 30");
-    //     super.treinarJogador(jogador);
-    //     this.forca += 1;
-    // }
-
+    //polimorfismo da nota desse jogador
     @Override
     public double getNota() {
         return (passe + 2 * finalizacao + 2 *this.forca) / 5;
     }
 
+    //polimorfismo da toString
     @Override
     public String toString() {
         String saida = "\n" + this.posicao + ":\n";
@@ -35,7 +28,6 @@ public class Pivo extends Jogador {
         saida += "   · Forca: " + this.forca + "\n";
         saida += "   · Energia: " + this.energia + " / " + this.energiaMax + "\n";
         saida += "   · Posição: " + this.posicao + "\n";
-        // saida += "   · Energia: " + this.energia + "\n";
         saida += "   · Saúde: ";
         if(this.energia >= 8) {
             saida += "otima";

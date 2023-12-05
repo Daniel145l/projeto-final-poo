@@ -1,28 +1,21 @@
-// package projeto_poo;
-
-// import java.io.Serializable;
 import java.text.DecimalFormat;
 
 public class Goleiro extends Jogador {
     private double reflexo;
     
+    //inicializa o atributo novo e passa para o construtor do pai os atributos
     public Goleiro(Nivel nivel, String nome, int camisa, double passe, double finalizacao, double reflexo, Posicao posicao) {
         super(nivel, nome, camisa, passe, finalizacao, posicao);
         this.reflexo = reflexo;
     }
 
-    // @Override
-    // public void treinarJogador(Jogador jogador) throws Exception{
-    //     // System.out.println("O custo do treino do jogador e 30");
-    //     super.treinarJogador(jogador);
-    //     this.reflexo += 1;
-    // }
-
+    //polimorfismo da nota desse jogador
     @Override
     public double getNota() {
         return (passe + finalizacao + 2 * this.reflexo) / 4;
     }
 
+    //polimorfismo da toString
     @Override
     public String toString() {
         String saida = "\n" + this.posicao + ":\n";
@@ -35,7 +28,6 @@ public class Goleiro extends Jogador {
         saida += "   · Reflexo: " + this.reflexo + "\n";
         saida += "   · Energia: " + this.energia + " / " + this.energiaMax + "\n";
         saida += "   · Posição: " + this.posicao + "\n";
-        // saida += "   · Energia: " + this.energia + "\n";
         saida += "   · Saúde: ";
         if(this.energia >= 8) {
             saida += "otima";

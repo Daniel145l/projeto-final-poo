@@ -1,13 +1,10 @@
-// package projeto_poo;
-
 import java.util.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
-// import projeto_poo.Titular;
 
+
+//atributos
 class Time implements Serializable {
-    //tem que ter: lista de relacionados, lista de titulares, lista de reservas, capitao e todas as posicoes
-    //tem que fazer: treinar, jogar
     private Map<String, Jogador> time;
     private Map<String, Jogador> titulares;
     private Map<String, Jogador> reservas;
@@ -17,8 +14,10 @@ class Time implements Serializable {
     private String presidente;
     private String nome;
 
+    //atributo para o salvamento de progresso
     private static final long serialVersionUID = 1L;
 
+    //inicializa os maps e a riqueza
     public Time() {
         this.time = new LinkedHashMap<String, Jogador>();
         this.titulares = new LinkedHashMap<String, Jogador>();
@@ -27,6 +26,7 @@ class Time implements Serializable {
         this.riqueza = 400;
     }
 
+    //metodo para dados do usuario
     public void nomePresidente() {
         System.out.println("\n============================ BEM-VINDO ============================\nParabéns, você foi contratado para ser o presidente-tecnico do novo time de futsal da UFC! Poderia nos dizer como quer ser chamado...");
         System.out.print("Diga seu nome: ");
@@ -37,6 +37,7 @@ class Time implements Serializable {
         this.nome = nome;
     }
 
+    //comprar um jogador e verificações
     public void comprarJogador(Jogador jogador) throws Exception{
         if(this.riqueza >= jogador.nivel.getValor()) {
             if(this.time.size() < 12) {
@@ -49,6 +50,7 @@ class Time implements Serializable {
         }else { throw new ExceptionMessage("Voce nao tem dinheiro suficiente!"); }
     }
 
+    //verder jogador e verificações
     public void venderJogador(String nome) throws Exception{
         if(this.time.size() > 0) {
             if(this.time.containsKey(nome)){
@@ -67,13 +69,14 @@ class Time implements Serializable {
                             venda = j.nivel.getValor() - 10;
                         }
                         this.riqueza += venda;
-                        System.out.println("O jogador " + nome + " foi vendido com sucesso por " + venda + "reais!");
+                        System.out.println("O jogador " + nome + " foi vendido com sucesso por " + venda + " reais!");
                     }
                 }
             }else {throw new ExceptionMessage("Esse jogador não está no seu time!");}
         }else { throw new ExceptionMessage("Você não tem jogadores para vender!"); }
     }
 
+    //adicionar jogador para titular
     public void addTitular(String nome) throws Exception{
         if(this.time.containsKey(nome)) {
             if(this.titulares.size() < 5) {
@@ -89,6 +92,7 @@ class Time implements Serializable {
         } else { throw new ExceptionMessage("Nao ha ninguem no time com esse nome!"); }
     }
 
+    //adicionar jogador para reserva
     public void addReserva(String nome) throws Exception{
         if(this.time.containsKey(nome)) {
             if(this.titulares.containsKey(nome)){
@@ -100,6 +104,7 @@ class Time implements Serializable {
         }else { throw new ExceptionMessage("Nao ha ninguem no time com esse nome!"); }
     }
 
+    //trocar reserva por titular
     public void substituir(String reserva, String titular) throws Exception{
         if(this.reservas.containsKey(reserva)){
             if(this.titulares.containsKey(titular)){
@@ -112,6 +117,7 @@ class Time implements Serializable {
         }else { throw new ExceptionMessage("Nao ha reserva com esse nome!"); }
     }
 
+    //colocar jogador como capitão
     public void tornarCap(String nome) throws Exception {
         if(this.titulares.containsKey(nome)) {
             for(Jogador j : this.titulares.values()) {
@@ -132,17 +138,18 @@ class Time implements Serializable {
         } else { throw new ExceptionMessage("Este jogador nao esta na lista de titulares!"); }
     }
 
+    //treinar jogador e melhorar
     public void treinarJogador(String nome) throws Exception {
         if(this.time.containsKey(nome)) {
             Jogador jogador = this.time.get(nome);
             if(this.riqueza >= 20) {
-
-                jogador.subirNivel();
-                    
+                
                 jogador.setPasse(1);
                 jogador.setFinalizacao(1);
                 jogador.setEnergia(-0.5);
                 setRiqueza(-30);
+
+                System.out.println("Jogador treinado!");
 
                 jogador.subirNivel();
 
@@ -150,24 +157,7 @@ class Time implements Serializable {
         } else {throw new ExceptionMessage("Este jogador não faz parte do time"); }
     }
 
-    public boolean temNome(String nome) {
-        for(Jogador j : this.time.values()) {
-            if(j.getNome().equals(nome)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean temCamisa(int camisa) {
-        for(Jogador j : this.time.values()) {
-            if(j.getCamisa() == camisa) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    //calculo de nota do time
     public double notaTime() {
         double notaGeral = 0;
         for(Jogador j : this.titulares.values()) {
@@ -177,6 +167,7 @@ class Time implements Serializable {
         return mediaTime;
     }
 
+    //ver se tem alguem lesionado no time
     public boolean timeLesao() {
         boolean timeRuim = false;
         for(Jogador j : this.titulares.values()) {
@@ -187,6 +178,7 @@ class Time implements Serializable {
         return timeRuim;
     }
 
+    //probabilidade do time ganhar
     public double calcularChance(Competicao competicao) {
         double chanceDeGanhar;
 
@@ -195,6 +187,7 @@ class Time implements Serializable {
         return chanceDeGanhar;
     }
 
+    //competir com probabilidade de ganhar
     public void jogar(Competicao jogo) throws Exception{
         if(!timeLesao()) {
             boolean temCapitao = false;
@@ -225,10 +218,7 @@ class Time implements Serializable {
         } else { throw new ExceptionMessage("Ha um jogador lesioanado no time"); }
     }
 
-    public void setRiqueza(double valor) {
-        this.riqueza += valor;
-    }
-
+    //mandar jogador para a fisioterapia
     public void fisioterapiaJogador(String nome) throws Exception {
         if(this.time.containsKey(nome)) {
             double energiaGanha = 10 - this.time.get(nome).getEnergia();
@@ -240,6 +230,28 @@ class Time implements Serializable {
             System.out.println(nome + " recebeu +"+ energiaGanha +" de energia!");
         }else {throw new ExceptionMessage("Nome do jogador não encontrado no time");}
     }
+
+     //VERIFICAÇÕES DE TRATAMENTO DE ERRO
+
+    public boolean temNome(String nome) {
+        for(Jogador j : this.time.values()) {
+            if(j.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean temCamisa(int camisa) {
+        for(Jogador j : this.time.values()) {
+            if(j.getCamisa() == camisa) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //PERGUNTAS PARA DEIXAR A MAIN MAIS LIMPA
 
     public Nivel nivelMostrarPerguntas() {
         System.out.println("Qual e o nivel de experiencia dele?");
@@ -303,6 +315,12 @@ class Time implements Serializable {
         return finalizacao;
     }
 
+    //SET E GETs
+
+    public void setRiqueza(double valor) {
+        this.riqueza += valor;
+    }
+
     public String getPresidente() {
         return this.presidente;
     }
@@ -334,8 +352,8 @@ class Time implements Serializable {
         }
         
         saida += "\n============== TITULARES ==============\n";
-        if(this.time.isEmpty()) {
-            saida += "\nSeu time ainda não tem jogadores!\n";
+        if(this.titulares.isEmpty()) {
+            saida += "\nSeu time ainda não tem jogadores titulares1!\n";
         }else {
             for(Jogador j : this.titulares.values()) {
                 saida += j.toString() + "\n";
@@ -343,8 +361,8 @@ class Time implements Serializable {
         }
 
         saida += "\n============== RESERVAS ==============\n";
-        if(this.time.isEmpty()) {
-            saida += "\nSeu time ainda não tem jogadores!\n";
+        if(this.reservas.isEmpty()) {
+            saida += "\nSeu time ainda não tem jogadores reservas!\n";
         }else {
             for(Jogador j : this.reservas.values()) {
                 saida += j.toString() + "\n";
